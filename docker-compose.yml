@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: namesdb
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
