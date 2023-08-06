@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: namesdb
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
 
@@ -20,7 +20,7 @@ services:
       DATABASE_HOST: db
       # ... any other environment variables you need for configuration
     ports:
-      - 8081:8080  # map this to whatever port your service runs on inside the container
+      - "8081:8080"  # map this to whatever port your service runs on inside the container
     depends_on:
       - db
 
@@ -30,6 +30,15 @@ services:
     environment:
       GETNAMES_SERVICE_URL: http://getnames-service:8080/api/names
     ports:
-      - 8082:8080  # map this to whatever port your service runs on inside the container
+      - "8082:8080"  # map this to whatever port your service runs on inside the container
     depends_on:
       - getnames-service
+
+  ui-service:
+    image: ui:latest
+    environment:
+      BACKEND_URL: http://gateway-service:8080
+    ports:
+      - "8080:80"
+    depends_on:
+      - gateway-service

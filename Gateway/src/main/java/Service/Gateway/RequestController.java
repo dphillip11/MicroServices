@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 public class RequestController {
@@ -15,18 +16,21 @@ public class RequestController {
 
     @Autowired
     private RestTemplate restTemplate;
-   
+
+    @CrossOrigin(origins = "http://localhost:8080")
     @DeleteMapping("/names")
     public ResponseEntity<?> handledDelete(@RequestBody String jsonRequest) {
         return performRequest(RequestType.DELETE, jsonRequest, NAMES_DB_URL, "names-db");
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/names")
     public ResponseEntity<?> handlePost(@RequestBody String jsonRequest) {
         return performRequest(RequestType.POST, jsonRequest, NAMES_DB_URL, "names-db");
 
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/names")
     public ResponseEntity<?> handleGet(@RequestBody String jsonRequest) {
         return performRequest(RequestType.GET, jsonRequest, NAMES_DB_URL, "names-db");

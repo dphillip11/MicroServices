@@ -3,6 +3,10 @@
 <button (click)="addName()">Add</button>
 <button (click)="removeName()">Remove</button>
 
-<ul>
-  <li *ngFor="let name of names">{{ name }}</li>
-</ul>
+
+  <ul>
+    <li *ngFor="let name of names">{{ name }}</li>
+  </ul>
+
+<h2>Response</h2>
+{{ data }}

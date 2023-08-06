@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GatewayService {
-  private readonly GETNAMES_URL = 'http://localhost:8082/api/names';
+  private readonly GETNAMES_URL = 'http://localhost:8082/names';
 
   constructor(private http: HttpClient) { }
 
