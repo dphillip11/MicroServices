@@ -38,12 +38,4 @@ public class GetNamesServiceApplication {
 		repository.save(new Name(name));
 	}
 
-	@Bean
-	public CommandLineRunner demo(NameRepository repository) {
-		return args -> {
-			PrintAllNames(repository);
-		};
-	}
-
-
 }

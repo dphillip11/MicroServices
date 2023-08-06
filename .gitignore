@@ -4,3 +4,17 @@
 data/
 
 gatewayService/.mvn/
+
+Gateway/.mvn/
+
+Gateway/mvnw
+
+*.cmd
+
+UserInterface/names-UI/.vscode/
+
+UserInterface/names-UI/src/assets/
+
+UserInterface/names-UI/src/favicon.ico
+
+UserInterface/names-UI/.editorconfig

@@ -1,22 +1,14 @@
 package getNamesService;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
+
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
 
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/names")
@@ -43,19 +35,18 @@ public class NameController {
 
     private ResponseEntity<?> busyResponse()
     {
-        return ResponseEntity.ok("Busy, await end of countdown");
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body("Busy, await end of countdown");
     }
 
     @GetMapping
-    public List<String> getAllNames() {
+    public ResponseEntity<?> getAllNames() {
         if (isWithinCountdown())
         {
-            var response = new ArrayList<String>();
-            response.add("Busy, await end of countdown");
-            return response;
+            return busyResponse();
         }
         var names = nameService.getAllNames();
-        return convertNamesToStringList(names);
+        return ResponseEntity.ok(names);
     }
 
     @DeleteMapping
@@ -79,10 +70,4 @@ public class NameController {
         return ResponseEntity.ok("Name " + newName.getName() + " added successfully");
     }
 
-    public List<String> convertNamesToStringList(List<Name> names)
-    {
-        return names.stream()
-                .map(Name::getName)
-                .collect(Collectors.toList());
-    }
 }
