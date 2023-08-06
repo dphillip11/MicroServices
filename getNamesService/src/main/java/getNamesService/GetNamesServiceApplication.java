@@ -41,7 +41,6 @@ public class GetNamesServiceApplication {
 	@Bean
 	public CommandLineRunner demo(NameRepository repository) {
 		return args -> {
-			AddName("John Does", repository);
 			PrintAllNames(repository);
 		};
 	}

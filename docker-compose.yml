@@ -12,3 +12,24 @@ services:
       - 5432:5432
     volumes:
       - ./data:/var/lib/postgresql/data
+
+  getnames-service:
+    image: getnamesservice:latest  # replace with the appropriate image name/tag
+    restart: always
+    environment:
+      DATABASE_HOST: db
+      # ... any other environment variables you need for configuration
+    ports:
+      - 8081:8080  # map this to whatever port your service runs on inside the container
+    depends_on:
+      - db
+
+  gateway-service:
+    image: gatewayservice:latest  # replace with the appropriate image name/tag
+    restart: always
+    environment:
+      GETNAMES_SERVICE_URL: http://getnames-service:8080/api/names
+    ports:
+      - 8082:8080  # map this to whatever port your service runs on inside the container
+    depends_on:
+      - getnames-service
